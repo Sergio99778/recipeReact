@@ -20,13 +20,21 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
-    width: 450,
+    width: "80vw",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
 }));
+
 //End Material UI modal
+
+const imageStyle = {
+  width: "15vw",
+  heigth: "15vh",
+  display: "block",
+  margin: "0 auto",
+};
 
 const Recipe = ({ recipe }) => {
   //config Material UI modal
@@ -41,8 +49,26 @@ const Recipe = ({ recipe }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
   //State from context
-  const { setIdRecipe } = useContext(ModalContext);
+  const { recipeInfo, setIdRecipe, setRecipe } = useContext(ModalContext);
+
+  //Ingredients
+  const showIngredients = (information) => {
+    const ingredients = [];
+    for (let i = 1; i < 16; i++) {
+      if (information[`strIngredient${i}`]) {
+        ingredients.push(
+          <li key={information.idDrink + Math.random()}>
+            {" "}
+            {information[`strIngredient${i}`]} {information[`strMeasure${i}`]}
+          </li>
+        );
+      }
+    }
+
+    return ingredients;
+  };
 
   return (
     <div className="col-md-4 mb-3">
@@ -64,11 +90,22 @@ const Recipe = ({ recipe }) => {
             open={open}
             onClose={() => {
               handleClose();
+              setRecipe({});
               setIdRecipe(null);
             }}
           >
             <div style={modalStyle} className={classes.paper}>
-              <h1>From modal</h1>
+              <h2>{recipeInfo.strDrink}</h2>
+              <h3 className="mt-4">Instructions:</h3>
+              <p>{recipeInfo.strInstructions}</p>
+              <img
+                src={recipeInfo.strDrinkThumb}
+                alt={recipeInfo.strDrink}
+                className="img-fluid mt-4"
+                style={imageStyle}
+              />
+              <h3>Ingredients and quantities</h3>
+              <ul>{showIngredients(recipeInfo)}</ul>
             </div>
           </Modal>
         </div>
