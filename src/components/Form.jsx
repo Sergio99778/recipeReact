@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "../bootstrap.min.css";
 
 //State for Categories
@@ -7,6 +7,18 @@ import { CategoriesContext } from "../context/CategoriesContext";
 const Form = () => {
   //Handle Categories state
   const { categories } = useContext(CategoriesContext);
+
+  const [search, setSearch] = useState({
+    name: "",
+    category: "",
+  });
+
+  const handleChange = (e) => {
+    setSearch({
+      ...search,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <form className="col-12">
@@ -20,10 +32,16 @@ const Form = () => {
             name="name"
             className="form-control"
             placeholder="Search by ingredient"
+            onChange={handleChange}
           />
         </div>
         <div className="col-md-4">
-          <select name="category" id="" className="form-control">
+          <select
+            name="category"
+            id=""
+            className="form-control"
+            onChange={handleChange}
+          >
             <option value="">-- Select Category</option>
             {categories.map((category) => (
               <option key={category.strCategory} value={category.strCategory}>
