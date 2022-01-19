@@ -8,7 +8,7 @@ import { RecipesContext } from "../context/RecipesContext";
 const Form = () => {
   //Handle state
   const { categories } = useContext(CategoriesContext);
-  const { setQuest } = useContext(RecipesContext);
+  const { setQuest, setConsult } = useContext(RecipesContext);
 
   const [search, setSearch] = useState({
     name: "",
@@ -28,6 +28,7 @@ const Form = () => {
       onSubmit={(e) => {
         e.preventDefault();
         setQuest(search);
+        setConsult(true);
       }}
     >
       <fieldset className="text-center">
