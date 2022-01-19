@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../bootstrap.min.css";
 
+//State for Categories
+import { CategoriesContext } from "../context/CategoriesContext";
+
 const Form = () => {
+  //Handle Categories state
+  const { categories } = useContext(CategoriesContext);
+
   return (
     <form className="col-12">
       <fieldset className="text-center">
@@ -19,7 +25,12 @@ const Form = () => {
         <div className="col-md-4">
           <select name="category" id="" className="form-control">
             <option value="">-- Select Category</option>
-            <option value="other">other</option>
+            {categories.map((category) => (
+              <option key={category.strCategory} value={category.strCategory}>
+                {" "}
+                {category.strCategory}
+              </option>
+            ))}
           </select>
         </div>
         <div className="col-md-4">
