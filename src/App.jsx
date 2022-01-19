@@ -3,6 +3,7 @@ import React from "react";
 //Components
 import Header from "./components/Header";
 import Form from "./components/Form";
+import RecipeList from "./components/RecipeList";
 
 //Context
 import CategoriesProvider from "./context/CategoriesContext";
@@ -17,6 +18,7 @@ function App() {
           <div className="row">
             <Form />
           </div>
+          <RecipeList />
         </div>
       </RecipesProvider>
     </CategoriesProvider>
